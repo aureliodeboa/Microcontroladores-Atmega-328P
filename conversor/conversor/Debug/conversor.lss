@@ -1,0 +1,304 @@
+
+conversor.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000200  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001ac  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000200  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000230  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  00000270  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007a1  00000000  00000000  00000290  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006ae  00000000  00000000  00000a31  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000034f  00000000  00000000  000010df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  00001430  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003d4  00000000  00000000  00001464  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000e2  00000000  00000000  00001838  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  0000191a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 40 00 	call	0x80	; 0x80 <main>
+  78:	0c 94 d4 00 	jmp	0x1a8	; 0x1a8 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <main>:
+#include <stdio.h>
+
+
+
+int main(void)
+{
+  80:	cf 93       	push	r28
+  82:	df 93       	push	r29
+  84:	cd b7       	in	r28, 0x3d	; 61
+  86:	de b7       	in	r29, 0x3e	; 62
+  88:	28 97       	sbiw	r28, 0x08	; 8
+  8a:	0f b6       	in	r0, 0x3f	; 63
+  8c:	f8 94       	cli
+  8e:	de bf       	out	0x3e, r29	; 62
+  90:	0f be       	out	0x3f, r0	; 63
+  92:	cd bf       	out	0x3d, r28	; 61
+	//char str;
+	int aux;		
+	
+	// Configuração ADC
+	
+	ADMUX= 0x00;  // bit7 e 6 seleciona AREF como tensão de referencia, ADLAR=0 então ADCH 2bits e ADCL 8 bits,  MUX[3:0]=000 ADC0
+  94:	10 92 7c 00 	sts	0x007C, r1	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
+	ADCSRA = 0x87; // 0b10000111	// bit 7 liga o ADC, bit 6 converão é incnializada , bit 5 ADATE habilita o auto gatilho, bit 4 ADIF setado quando a conversão é finalizada,
+  98:	87 e8       	ldi	r24, 0x87	; 135
+  9a:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+					//bit 3 - ADIE = SE 1 habilita a interrupção ADC, bits 2 ao 0 ADPS[2:0] seleciona o valor de divisão de frequencia.
+	ADCSRB = 0b00000000;
+  9e:	10 92 7b 00 	sts	0x007B, r1	; 0x80007b <__TEXT_REGION_LENGTH__+0x7f807b>
+	
+	// Configuração USART
+	
+	UBRR0H = 0b00000000;
+  a2:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+	UBRR0L = 0b01100111; //9600 bits/s
+  a6:	87 e6       	ldi	r24, 0x67	; 103
+  a8:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	
+	UCSR0A = 0b01000000;  //TXC0 = 1 (zera esse flag) , U2x0 = 0 (velocidade normal), MPCM0 = 0 (desabilita modo multiprocessador) 
+  ac:	80 e4       	ldi	r24, 0x40	; 64
+  ae:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+	
+	UCSR0B = 0b00011000; //desabilita interrupção recepçãp (RXCIe0= 0), transmissão (TXCIE0 = 0)
+  b2:	88 e1       	ldi	r24, 0x18	; 24
+  b4:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+						//e buffer vaxio (UDRIE0=0), habilita receptor USART RXEN0 =1
+						//(RxD torna-se uma entrada), habilita transmissor TXEN0 =1
+						//(TxD torna-se uma saída), seleciona 8 bits de dados (UCSZ2 =0).
+	
+	UCSR0C = 0b00000110; //habilita o modo assincrono ( UMSEL01/00=00), desabilita paridade (UPM01/00=00),
+  b8:	86 e0       	ldi	r24, 0x06	; 6
+  ba:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  be:	2f ef       	ldi	r18, 0xFF	; 255
+  c0:	83 ed       	ldi	r24, 0xD3	; 211
+  c2:	90 e3       	ldi	r25, 0x30	; 48
+  c4:	21 50       	subi	r18, 0x01	; 1
+  c6:	80 40       	sbci	r24, 0x00	; 0
+  c8:	90 40       	sbci	r25, 0x00	; 0
+  ca:	e1 f7       	brne	.-8      	; 0xc4 <main+0x44>
+  cc:	00 c0       	rjmp	.+0      	; 0xce <main+0x4e>
+  ce:	00 00       	nop
+	
+	
+	while (1)
+	{
+		_delay_ms(1000);
+		ADCSRA = ADCSRA | 0x40; //inicia a conversão ADCS =1
+  d0:	ea e7       	ldi	r30, 0x7A	; 122
+  d2:	f0 e0       	ldi	r31, 0x00	; 0
+  d4:	80 81       	ld	r24, Z
+  d6:	80 64       	ori	r24, 0x40	; 64
+  d8:	80 83       	st	Z, r24
+		
+		while((ADCSRA & 0x10) != 0x10){} //aguarda a recepção de dados
+  da:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+  de:	84 ff       	sbrs	r24, 4
+  e0:	fc cf       	rjmp	.-8      	; 0xda <main+0x5a>
+		
+		datal = ADCL;
+  e2:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7f8078>
+		datah = ADCH;
+  e6:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7f8079>
+		
+		ADCSRA = ADCSRA | 0x10; // zera flag
+  ea:	ea e7       	ldi	r30, 0x7A	; 122
+  ec:	f0 e0       	ldi	r31, 0x00	; 0
+  ee:	80 81       	ld	r24, Z
+  f0:	80 61       	ori	r24, 0x10	; 16
+  f2:	80 83       	st	Z, r24
+		tensao = ((5*data)/1023.0); //valor da tensão
+		
+		temp = (tensao*1000); //tensão *100 para pegar 3 digit
+		aux = temp*10;
+
+		numero[0]= ((aux/1000) + 48); //numero da tabela ascci os nuemros começão em 48 então o valor sera aux+ 48
+  f4:	83 e3       	ldi	r24, 0x33	; 51
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	9a 83       	std	Y+2, r25	; 0x02
+  fa:	89 83       	std	Y+1, r24	; 0x01
+		aux %=1000;
+		numero[1]= ((aux/100) + 48);
+  fc:	81 e3       	ldi	r24, 0x31	; 49
+  fe:	90 e0       	ldi	r25, 0x00	; 0
+ 100:	9c 83       	std	Y+4, r25	; 0x04
+ 102:	8b 83       	std	Y+3, r24	; 0x03
+		aux %=100;
+		numero[2]= 46; // .
+ 104:	8e e2       	ldi	r24, 0x2E	; 46
+ 106:	90 e0       	ldi	r25, 0x00	; 0
+ 108:	9e 83       	std	Y+6, r25	; 0x06
+ 10a:	8d 83       	std	Y+5, r24	; 0x05
+		numero[3]= ((aux/10)+ 0x30);
+ 10c:	82 e3       	ldi	r24, 0x32	; 50
+ 10e:	90 e0       	ldi	r25, 0x00	; 0
+ 110:	98 87       	std	Y+8, r25	; 0x08
+ 112:	8f 83       	std	Y+7, r24	; 0x07
+		
+		//numero[4]= 111; //o
+		//numero[5]= 67; // C
+		
+		//while((UCSR0A & 0x80) != 0x80){}
+		for (i=0;i<4;i++)
+ 114:	20 e0       	ldi	r18, 0x00	; 0
+ 116:	30 e0       	ldi	r19, 0x00	; 0
+ 118:	19 c0       	rjmp	.+50     	; 0x14c <main+0xcc>
+		{
+			while((UCSR0A & 0x20) != 0x20){}
+ 11a:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 11e:	85 ff       	sbrs	r24, 5
+ 120:	fc cf       	rjmp	.-8      	; 0x11a <main+0x9a>
+			UDR0 = numero[i];
+ 122:	f9 01       	movw	r30, r18
+ 124:	ee 0f       	add	r30, r30
+ 126:	ff 1f       	adc	r31, r31
+ 128:	81 e0       	ldi	r24, 0x01	; 1
+ 12a:	90 e0       	ldi	r25, 0x00	; 0
+ 12c:	8c 0f       	add	r24, r28
+ 12e:	9d 1f       	adc	r25, r29
+ 130:	e8 0f       	add	r30, r24
+ 132:	f9 1f       	adc	r31, r25
+ 134:	80 81       	ld	r24, Z
+ 136:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+			while((UCSR0A & 0x40) != 0x40){}
+ 13a:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 13e:	86 ff       	sbrs	r24, 6
+ 140:	fc cf       	rjmp	.-8      	; 0x13a <main+0xba>
+			UCSR0A= 0x40;
+ 142:	80 e4       	ldi	r24, 0x40	; 64
+ 144:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+		
+		//numero[4]= 111; //o
+		//numero[5]= 67; // C
+		
+		//while((UCSR0A & 0x80) != 0x80){}
+		for (i=0;i<4;i++)
+ 148:	2f 5f       	subi	r18, 0xFF	; 255
+ 14a:	3f 4f       	sbci	r19, 0xFF	; 255
+ 14c:	24 30       	cpi	r18, 0x04	; 4
+ 14e:	31 05       	cpc	r19, r1
+ 150:	24 f3       	brlt	.-56     	; 0x11a <main+0x9a>
+			UDR0 = numero[i];
+			while((UCSR0A & 0x40) != 0x40){}
+			UCSR0A= 0x40;
+		}
+		
+		while((UCSR0A & 0x20) != 0x20){}
+ 152:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 156:	85 ff       	sbrs	r24, 5
+ 158:	fc cf       	rjmp	.-8      	; 0x152 <main+0xd2>
+		UDR0 = 'o';
+ 15a:	8f e6       	ldi	r24, 0x6F	; 111
+ 15c:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+		while((UCSR0A & 0x40) != 0x40){}
+ 160:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 164:	86 ff       	sbrs	r24, 6
+ 166:	fc cf       	rjmp	.-8      	; 0x160 <main+0xe0>
+		UCSR0A= 0x40;
+ 168:	80 e4       	ldi	r24, 0x40	; 64
+ 16a:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+		
+		
+		while((UCSR0A & 0x20) != 0x20){}
+ 16e:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 172:	85 ff       	sbrs	r24, 5
+ 174:	fc cf       	rjmp	.-8      	; 0x16e <main+0xee>
+		UDR0 = 'C';
+ 176:	83 e4       	ldi	r24, 0x43	; 67
+ 178:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+		while((UCSR0A & 0x40) != 0x40){}
+ 17c:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 180:	86 ff       	sbrs	r24, 6
+ 182:	fc cf       	rjmp	.-8      	; 0x17c <main+0xfc>
+		UCSR0A= 0x40;
+ 184:	80 e4       	ldi	r24, 0x40	; 64
+ 186:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+		
+		
+		while((UCSR0A & 0x20) != 0x20){}
+ 18a:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 18e:	85 ff       	sbrs	r24, 5
+ 190:	fc cf       	rjmp	.-8      	; 0x18a <main+0x10a>
+		UDR0 = '\n';
+ 192:	8a e0       	ldi	r24, 0x0A	; 10
+ 194:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+		while((UCSR0A & 0x40) != 0x40){}
+ 198:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 19c:	86 ff       	sbrs	r24, 6
+ 19e:	fc cf       	rjmp	.-8      	; 0x198 <main+0x118>
+		UCSR0A= 0x40;
+ 1a0:	80 e4       	ldi	r24, 0x40	; 64
+ 1a2:	80 93 c0 00 	sts	0x00C0, r24	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+		
+		
+		
+		
+		
+	}
+ 1a6:	8b cf       	rjmp	.-234    	; 0xbe <main+0x3e>
+
+000001a8 <_exit>:
+ 1a8:	f8 94       	cli
+
+000001aa <__stop_program>:
+ 1aa:	ff cf       	rjmp	.-2      	; 0x1aa <__stop_program>
